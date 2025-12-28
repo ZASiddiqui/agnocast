@@ -14,6 +14,7 @@ struct AgnocastExecutable
 {
   std::shared_ptr<std::function<void()>> callable;
   rclcpp::CallbackGroup::SharedPtr callback_group{nullptr};
+  int64_t entry_id;
 };
 
 class AgnocastExecutor : public rclcpp::Executor

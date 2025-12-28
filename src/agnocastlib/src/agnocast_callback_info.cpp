@@ -61,7 +61,7 @@ void receive_message(
     {
       std::lock_guard<std::mutex> ready_lock{ready_agnocast_executables_mutex};
       ready_agnocast_executables.emplace_back(
-        AgnocastExecutable{callable, callback_info.callback_group});
+        AgnocastExecutable{callable, callback_info.callback_group, receive_args.ret_entry_ids[i]});
     }
   }
 }
