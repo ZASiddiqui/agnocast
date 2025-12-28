@@ -59,10 +59,18 @@ void receive_message(
     }
 
     {
+      if(ready_agnocast_executables.size() < 5){
       std::lock_guard<std::mutex> ready_lock{ready_agnocast_executables_mutex};
       ready_agnocast_executables.emplace_back(
         AgnocastExecutable{callable, callback_info.callback_group, receive_args.ret_entry_ids[i]});
     }
+    else{
+      ready_agnocast_executables.erase(ready_agnocast_executables.begin());
+      agnocast::decrement_rc(
+        callback_info.topic_name, callback_info.subscriber_id,
+        receive_args.ret_entry_ids[i]);
+    }
+  }
   }
 }
 
